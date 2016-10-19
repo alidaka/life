@@ -2,7 +2,7 @@ class Life
   attr_reader :world
 
   def initialize(world)
-    Life.validate_world(world)
+    Life.validate_dimensions(world)
 
     @world = Life.duplicate_world(world)
   end
@@ -19,12 +19,19 @@ class Life
     world = Life.duplicate_world(@world)
 
     # for each cell
-    neighbors = living_neighbors(1,1)
-    @world[1][1] = false
+    @world.each_with_index { |row,row_index|
+      row.each_with_index { |cell,col_index|
+        world[row_index][col_index] = false
+      }
+    }
+
+    @world = world
+    #neighbors = living_neighbors(1,1)
+    #@world[1][1] = false
   end
 
 private
-  def self.validate_world(world)
+  def self.validate_dimensions(world)
     unless world.length >= 3 && world[0].length >= 3
       raise(ArgumentError, "world must be minimum 3x3")
     end

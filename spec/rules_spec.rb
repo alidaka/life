@@ -28,7 +28,7 @@ RSpec.describe 'A cell' do
       end
     end
 
-    xit 'in an inner location in a larger grid' do
+    it 'in an inner location in a larger grid' do
       world = Helpers.empty_world(10, 20)
 
       life = Life.new(world)
