@@ -127,4 +127,35 @@ RSpec.describe 'A cell' do
       expect(life.world[1][1]).to eq(true)
     end
   end
+
+  context 'on an edge' do
+    it '(dead) revives with exactly 3 live neighbors' do
+      world = Helpers.empty_world
+
+      life = Life.new(world)
+      life.world[0][0] = true
+      life.world[0][1] = true
+      life.world[0][2] = true
+
+      life.step
+
+      expect(life.world[2][1]).to eq(true)
+    end
+
+    it '(alive) dies with too many live neighbors' do
+      world = Helpers.empty_world
+
+      life = Life.new(world)
+      life.world[0][0] = true
+      life.world[0][1] = true
+      life.world[0][2] = true
+      life.world[2][0] = true
+      life.world[2][1] = true
+      life.world[2][2] = true
+
+      life.step
+
+      expect(life.world[2][2]).to eq(false)
+    end
+  end
 end
